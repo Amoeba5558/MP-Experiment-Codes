@@ -1,0 +1,188 @@
+<html>
+<head>
+       <title>source code: </title>
+       <meta name="description" content="source code">
+       <style>
+           a:link {text-decoration: none}
+           a:visited {text-decoration: none}
+           a:hover {text-decoration: none; color:#ff0000}
+       </style>
+</head>
+<body leftmargin=110  rightmargin=110 topmargin=20 bgcolor=#FFFFFF text=#000000 link=blue vlink=blue alink=blue>
+ 
+ 
+<!-- * -->
+ 
+ 
+
+
+
+
+<!-- START AUTOMATIC ASM TO HTML EXPORT -->
+<pre><font size=2 face="Liberation Sans">
+ 
+<font color=#000064>org</font> 100h 
+ 
+.model small 
+.stack 
+.data 
+m1 <font color=#000064>db</font> 10,13,<font color=#800080>"Enter 1st string:$"</font> 
+m2 <font color=#000064>db</font> 10,13,<font color=#800080>"Length of 1st string:$"</font> 
+m3 <font color=#000064>db</font> 10,13,<font color=#800080>"Display 1st string:$"</font>   
+m4 <font color=#000064>db</font> 10,13,<font color=#800080>"Enter 2nd string:$"</font> 
+m5 <font color=#000064>db</font> 10,13,<font color=#800080>"Length of 2nd string:$"</font>    
+m6 <font color=#000064>db</font> 10,13,<font color=#800080>"Display 2nd string:$"</font>  
+m7 <font color=#000064>db</font> 10,13,<font color=#800080>"Comparison : $ "</font> 
+m8 <font color=#000064>db</font> 10,13,<font color=#800080>"Strings are Equal$"</font> 
+m9 <font color=#000064>db</font> 10,13,<font color=#800080>" Strings are not Equal$"</font> 
+m10 <font color=#000064>db</font> 10,13,<font color=#800080>"Concatenatd String is  : $"</font>       
+ 
+str1 <font color=#000064>db</font> 80,?,80 DUP(?) 
+str2 <font color=#000064>db</font> 80,?,80 DUP(?)   
+str3 <font color=#000064>db</font> 80,?,80 DUP(?)   
+ 
+.code 
+Disp <font color=#0000FF>macro</font> xx 
+    <font color=#0000FF>mov</font> <font color=#C80000>ah</font>,09h 
+    <font color=#0000FF>lea</font> <font color=#C80000>dx</font>,xx 
+    <font color=#0000FF>int</font> 21h 
+endm 
+ 
+.startup 
+Disp m1     <font color=#008000>;Enter 1st string </font>
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,0Ah  <font color=#008000>;Read a string from the keyboard into buffer addressed by DX </font>
+<font color=#0000FF>lea</font> <font color=#C80000>dx</font>,str1 
+<font color=#0000FF>int</font> 21h 
+ 
+Disp m2        <font color=#008000>;Length of 1st string </font>
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str1<font color=#0064C8>+</font>1 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>cl</font>,<font color=#C80000>dl</font> 
+<font color=#0000FF>add</font> <font color=#C80000>dl</font>,30h 
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,02h 
+<font color=#0000FF>int</font> 21h 
+ 
+Disp m3       <font color=#008000>;Display 1st string </font>
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str1<font color=#0064C8>+</font>2 
+ 
+Back: 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,02h 
+<font color=#0000FF>int</font> 21h 
+ 
+<font color=#0000FF>inc</font> <font color=#C80000>si</font> 
+<font color=#0000FF>dec</font> <font color=#C80000>cl</font> 
+<font color=#0000FF>jnz</font> Back 
+ 
+Disp m4       <font color=#008000>;Enter 2nd string </font>
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,0Ah 
+<font color=#0000FF>lea</font> <font color=#C80000>dx</font>,str2 
+<font color=#0000FF>int</font> 21h 
+ 
+Disp m5    <font color=#008000>;Length of 2nd string </font>
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str2<font color=#0064C8>+</font>1 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>cl</font>,<font color=#C80000>dl</font> 
+<font color=#0000FF>add</font> <font color=#C80000>dl</font>,30h 
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,02h 
+<font color=#0000FF>int</font> 21h 
+ 
+Disp m6    <font color=#008000>;Display 2nd string </font>
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str2<font color=#0064C8>+</font>2 
+Back1: 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,02h 
+<font color=#0000FF>int</font> 21h 
+ 
+<font color=#0000FF>inc</font> <font color=#C80000>si</font> 
+<font color=#0000FF>dec</font> <font color=#C80000>cl</font> 
+<font color=#0000FF>jnz</font> Back1 
+ 
+Disp m7      <font color=#008000>; Comparison </font>
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str1<font color=#0064C8>+</font>1 
+<font color=#0000FF>mov</font> <font color=#C80000>cl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font>   
+<font color=#0000FF>lea</font> <font color=#C80000>di</font>,str2<font color=#0064C8>+</font>1   
+<font color=#0000FF>mov</font> <font color=#C80000>ch</font>,<font color=#0064C8>[</font><font color=#C80000>di</font><font color=#0064C8>]</font> 
+<font color=#0000FF>cmp</font> <font color=#C80000>cl</font>,<font color=#C80000>ch</font> 
+<font color=#0000FF>jnz</font> AA 
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str1<font color=#0064C8>+</font>2 
+<font color=#0000FF>lea</font> <font color=#C80000>di</font>,str2<font color=#0064C8>+</font>2 
+ 
+Back2: 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>dh</font>,<font color=#0064C8>[</font><font color=#C80000>di</font><font color=#0064C8>]</font> 
+<font color=#0000FF>cmp</font> <font color=#C80000>dl</font>,<font color=#C80000>dh</font> 
+<font color=#0000FF>jnz</font> AA 
+<font color=#0000FF>inc</font> <font color=#C80000>si</font> 
+<font color=#0000FF>inc</font> <font color=#C80000>di</font> 
+<font color=#0000FF>dec</font> <font color=#C80000>cl</font> 
+<font color=#0000FF>jnz</font> Back2  
+ 
+Disp m8    <font color=#008000>;Strings are Equal </font>
+<font color=#0000FF>jmp</font> con  
+ 
+AA: 
+Disp m9   <font color=#008000>; Strings are not Equal </font>
+ 
+con: 
+Disp m10       <font color=#008000>;Concatenatd String is </font>
+ 
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str1<font color=#0064C8>+</font>1 
+<font color=#0000FF>mov</font> <font color=#C80000>cl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>bl</font>,<font color=#C80000>cl</font> 
+ 
+<font color=#0000FF>lea</font> <font color=#C80000>di</font>,str2<font color=#0064C8>+</font>1 
+<font color=#0000FF>mov</font> <font color=#C80000>ch</font>,<font color=#0064C8>[</font><font color=#C80000>di</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>bh</font>,<font color=#C80000>ch</font> 
+<font color=#0000FF>add</font> <font color=#C80000>bl</font>,<font color=#C80000>bh</font> 
+ 
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str1<font color=#0064C8>+</font>2 
+<font color=#0000FF>lea</font> <font color=#C80000>di</font>,str3<font color=#0064C8>+</font>2 
+ 
+Back3: 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#0064C8>[</font><font color=#C80000>di</font><font color=#0064C8>]</font>,<font color=#C80000>dl</font> 
+<font color=#0000FF>inc</font> <font color=#C80000>si</font> 
+<font color=#0000FF>inc</font> <font color=#C80000>di</font> 
+<font color=#0000FF>dec</font> <font color=#C80000>cl</font> 
+<font color=#0000FF>jnz</font> back3 
+<font color=#0000FF>lea</font> <font color=#C80000>si</font>,str2<font color=#0064C8>+</font>2 
+ 
+Back4: 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>si</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#0064C8>[</font><font color=#C80000>di</font><font color=#0064C8>]</font>,<font color=#C80000>dl</font> 
+<font color=#0000FF>inc</font> <font color=#C80000>si</font> 
+<font color=#0000FF>inc</font> <font color=#C80000>di</font> 
+<font color=#0000FF>dec</font> <font color=#C80000>ch</font> 
+<font color=#0000FF>jnz</font> Back4 
+<font color=#0000FF>lea</font> <font color=#C80000>di</font>,str3<font color=#0064C8>+</font>2 
+ 
+Back5: 
+<font color=#0000FF>mov</font> <font color=#C80000>dl</font>,<font color=#0064C8>[</font><font color=#C80000>di</font><font color=#0064C8>]</font> 
+<font color=#0000FF>mov</font> <font color=#C80000>ah</font>,02h 
+<font color=#0000FF>int</font> 21h 
+<font color=#0000FF>inc</font> <font color=#C80000>di</font> 
+<font color=#0000FF>dec</font> <font color=#C80000>bl</font> 
+<font color=#0000FF>jnz</font> Back5   
+ 
+Exit: 
+.exit 
+<font color=#000064>end</font> 
+ 
+<font color=#0000FF>ret</font> 
+ 
+</font></pre>
+<center> <font color=#FFFFFF>;</font> <a href="http://www.emu8086.com" target="_blank"><font face=verdana size=1 color=#000000> - asm2html - </font></a> </center>
+<!-- emu8086 version 4.08    -->
+<!-- STOP AUTOMATIC ASM TO HTML EXPORT -->
+
+
+
+
+ 
+ 
+<!-- *** -->
+ 
+ 
+</body>
+</html>
